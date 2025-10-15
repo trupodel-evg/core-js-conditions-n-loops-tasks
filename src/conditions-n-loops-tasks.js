@@ -27,9 +27,6 @@ function isPositive(number) {
   }
   return false;
 }
-console.log(isPositive(4));
-console.log(isPositive(-12));
-console.log(isPositive(0));
 
 /**
  * Returns the maximum of three numbers without using Array and Math classes methods.
@@ -53,7 +50,7 @@ function getMaxNumber(a, b, c) {
   }
   return c;
 }
-console.log(getMaxNumber(2, 9, 0));
+
 /**
  * Checks if a queen can capture a king in the next move on an 8x8 chessboard.
  * See more details at https://en.wikipedia.org/wiki/Queen_(chess)
@@ -74,19 +71,26 @@ console.log(getMaxNumber(2, 9, 0));
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
 
-// function canQueenCaptureKing(queen, king) {
-//   if (queen.x === king.x || queen.y === king.y) {
-//     return true;
-//   }
-//   const dx = queen.x - king.x;
-//   const dy = queen.y - king.y;
-//   if ((dx > 0 && dy > 0) || (dx < 0 && dy < 0)) {
-//     if ((dx > 0 && dy > 0 && dx === dy) || (dx < 0 && dy < 0 && dx === dy)) {
-//       return true;
-//     }
-//   }
-//   return false;
-// }
+function canQueenCaptureKing(queen, king) {
+  if (queen.x === king.x) {
+    return true;
+  }
+  if (queen.y === king.y) {
+    return true;
+  }
+  let dx = queen.x - king.x;
+  let dy = queen.y - king.y;
+  if (dx < 0) {
+    dx = -dx;
+  }
+  if (dy < 0) {
+    dy = -dy;
+  }
+  if (dx === dy) {
+    return true;
+  }
+  return false;
+}
 
 /**
  * Determines whether a triangle is isosceles based on its side lengths.
@@ -106,8 +110,17 @@ console.log(getMaxNumber(2, 9, 0));
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a <= 0 || b <= 0 || c <= 0) {
+    return false;
+  }
+  if (a + b <= c || a + c <= b || b + c <= a) {
+    return false;
+  }
+  if (a === b || b === c || a === c) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -124,8 +137,34 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+
+function convertToRomanNumerals(num) {
+  let num1 = num;
+  if (num1 < 1 || num1 > 39) {
+    return 'Number must be between 1 and 39';
+  }
+  let result = '';
+  while (num1 >= 10) {
+    result += 'X';
+    num1 -= 10;
+  }
+  if (num1 === 9) {
+    result += 'IX';
+    num1 -= 9;
+  }
+  if (num1 >= 5) {
+    result += 'V';
+    num1 -= 5;
+  }
+  if (num1 === 4) {
+    result += 'IV';
+    num1 -= 4;
+  }
+  while (num1 >= 1) {
+    result += 'I';
+    num1 -= 1;
+  }
+  return result;
 }
 
 /**
@@ -143,8 +182,31 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let result = '';
+  const obj = {
+    1: 'one',
+    2: 'two',
+    3: 'three',
+    4: 'four',
+    5: 'five',
+    6: 'six',
+    7: 'seven',
+    8: 'eight',
+    9: 'nine',
+    0: 'zero',
+    '-': 'minus',
+    '+': 'plus',
+    '.': 'point',
+    ',': 'point',
+  };
+  for (let i = 0; i <= numberStr.length - 1; i += 1) {
+    if (i > 0) {
+      result += ' ';
+    }
+    result += obj[numberStr[i]];
+  }
+  return result;
 }
 
 /**
