@@ -541,7 +541,7 @@ function sortByAsc(arr) {
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 function shuffleChar(/* str, iterations */) {
-    throw new Error('Not implemented');
+  throw new Error('Not implemented');
 }
 
 /**
